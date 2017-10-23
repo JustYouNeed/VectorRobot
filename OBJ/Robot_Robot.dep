@@ -1,7 +1,5 @@
 Dependencies for Project 'Robot', Target 'Robot': (DO NOT MODIFY !)
-F (.\main.c)(0x59ECD402)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
-I (..\ROBOT\inc\robot.h)(0x59EAA2F6)
-I (..\ROBOT\inc\robot_motor.h)(0x59EB039C)
+F (.\main.c)(0x59EE04FE)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (..\BSP_DRIVER\inc\bsp.h)(0x59E9A430)
 I (D:\Program Files\Keil\ARM\ARMCC\include\stdio.h)(0x57F606B8)
 I (D:\Program Files\Keil\ARM\ARMCC\include\string.h)(0x57F606B8)
@@ -43,9 +41,12 @@ I (..\BSP_DRIVER\inc\bsp_key.h)(0x59E9A430)
 I (..\BSP_DRIVER\inc\bsp_led.h)(0x59EB16D3)
 I (..\BSP_DRIVER\inc\bsp_usart.h)(0x59EBDB0F)
 I (..\BSP_DRIVER\inc\bsp_timer.h)(0x59E9A430)
-I (..\ROBOT\inc\robot_detect.h)(0x59EB9A4D)
+I (..\ROBOT\inc\robot.h)(0x59EE0484)
+I (..\ROBOT\inc\robot_motor.h)(0x59EE01E9)
+I (..\ROBOT\inc\robot_detect.h)(0x59EE0484)
 I (..\ROBOT\inc\robot_servo.h)(0x59EAA327)
 I (..\ROBOT\inc\robot_debug.h)(0x59EB76B1)
+I (..\ROBOT\inc\robot_sensor.h)(0x59EE03E5)
 F (.\stm32f4xx_it.c)(0x59ECD31C)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\stm32f4xx_it.o --omf_browse ..\obj\stm32f4xx_it.crf --depend ..\obj\stm32f4xx_it.d)
 I (stm32f4xx_it.h)(0x5710F357)
 I (stm32f4xx.h)(0x5710F357)
@@ -442,11 +443,12 @@ I (..\BSP_DRIVER\inc\bsp_key.h)(0x59E9A430)
 I (..\BSP_DRIVER\inc\bsp_led.h)(0x59EB16D3)
 I (..\BSP_DRIVER\inc\bsp_usart.h)(0x59EBDB0F)
 I (..\BSP_DRIVER\inc\bsp_timer.h)(0x59E9A430)
-I (..\ROBOT\inc\robot.h)(0x59EAA2F6)
-I (..\ROBOT\inc\robot_motor.h)(0x59EB039C)
-I (..\ROBOT\inc\robot_detect.h)(0x59EB9A4D)
+I (..\ROBOT\inc\robot.h)(0x59EE0484)
+I (..\ROBOT\inc\robot_motor.h)(0x59EE01E9)
+I (..\ROBOT\inc\robot_detect.h)(0x59EE0484)
 I (..\ROBOT\inc\robot_servo.h)(0x59EAA327)
 I (..\ROBOT\inc\robot_debug.h)(0x59EB76B1)
+I (..\ROBOT\inc\robot_sensor.h)(0x59EE03E5)
 F (..\BSP_DRIVER\src\bsp_key.c)(0x59E9A430)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\bsp_key.o --omf_browse ..\obj\bsp_key.crf --depend ..\obj\bsp_key.d)
 I (..\BSP_DRIVER\inc\bsp.h)(0x59E9A430)
 I (D:\Program Files\Keil\ARM\ARMCC\include\stdio.h)(0x57F606B8)
@@ -616,9 +618,8 @@ I (..\BSP_DRIVER\inc\bsp_led.h)(0x59EB16D3)
 I (..\BSP_DRIVER\inc\bsp_usart.h)(0x59EBDB0F)
 I (..\BSP_DRIVER\inc\bsp_timer.h)(0x59E9A430)
 I (D:\Program Files\Keil\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
-F (..\ROBOT\src\robot.c)(0x59EAC305)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\robot.o --omf_browse ..\obj\robot.crf --depend ..\obj\robot.d)
-I (..\ROBOT\inc\robot.h)(0x59EAA2F6)
-I (..\ROBOT\inc\robot_motor.h)(0x59EB039C)
+F (..\ROBOT\src\robot.c)(0x59EE0524)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\robot.o --omf_browse ..\obj\robot.crf --depend ..\obj\robot.d)
+I (..\ROBOT\inc\robot.h)(0x59EE0484)
 I (..\BSP_DRIVER\inc\bsp.h)(0x59E9A430)
 I (D:\Program Files\Keil\ARM\ARMCC\include\stdio.h)(0x57F606B8)
 I (D:\Program Files\Keil\ARM\ARMCC\include\string.h)(0x57F606B8)
@@ -660,59 +661,13 @@ I (..\BSP_DRIVER\inc\bsp_key.h)(0x59E9A430)
 I (..\BSP_DRIVER\inc\bsp_led.h)(0x59EB16D3)
 I (..\BSP_DRIVER\inc\bsp_usart.h)(0x59EBDB0F)
 I (..\BSP_DRIVER\inc\bsp_timer.h)(0x59E9A430)
-I (..\ROBOT\inc\robot_detect.h)(0x59EB9A4D)
+I (..\ROBOT\inc\robot_motor.h)(0x59EE01E9)
+I (..\ROBOT\inc\robot_detect.h)(0x59EE0484)
 I (..\ROBOT\inc\robot_servo.h)(0x59EAA327)
 I (..\ROBOT\inc\robot_debug.h)(0x59EB76B1)
-F (..\ROBOT\src\robot_adc.c)(0x59EB9274)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\robot_adc.o --omf_browse ..\obj\robot_adc.crf --depend ..\obj\robot_adc.d)
-I (..\ROBOT\inc\robot.h)(0x59EAA2F6)
-I (..\ROBOT\inc\robot_motor.h)(0x59EB039C)
-I (..\BSP_DRIVER\inc\bsp.h)(0x59E9A430)
-I (D:\Program Files\Keil\ARM\ARMCC\include\stdio.h)(0x57F606B8)
-I (D:\Program Files\Keil\ARM\ARMCC\include\string.h)(0x57F606B8)
-I (..\USER\stm32f4xx.h)(0x5710F357)
-I (..\CORE\core_cm4.h)(0x5710F354)
-I (D:\Program Files\Keil\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-I (..\CORE\core_cmInstr.h)(0x5710F354)
-I (..\CORE\core_cmFunc.h)(0x5710F354)
-I (..\CORE\core_cm4_simd.h)(0x5710F354)
-I (..\USER\system_stm32f4xx.h)(0x5710F357)
-I (..\USER\stm32f4xx_conf.h)(0x5710F357)
-I (..\FWLIB\inc\stm32f4xx_adc.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_crc.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_dbgmcu.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_dma.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_exti.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_flash.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_gpio.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_i2c.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_iwdg.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_pwr.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_rcc.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_rtc.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_sdio.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_spi.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_syscfg.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_tim.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_usart.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_wwdg.h)(0x5710F355)
-I (..\FWLIB\inc\misc.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_cryp.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_hash.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_rng.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_can.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_dac.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x5710F355)
-I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x5710F355)
-I (..\BSP_DRIVER\inc\bsp_key.h)(0x59E9A430)
-I (..\BSP_DRIVER\inc\bsp_led.h)(0x59EB16D3)
-I (..\BSP_DRIVER\inc\bsp_usart.h)(0x59EBDB0F)
-I (..\BSP_DRIVER\inc\bsp_timer.h)(0x59E9A430)
-I (..\ROBOT\inc\robot_detect.h)(0x59EB9A4D)
-I (..\ROBOT\inc\robot_servo.h)(0x59EAA327)
-I (..\ROBOT\inc\robot_debug.h)(0x59EB76B1)
+I (..\ROBOT\inc\robot_sensor.h)(0x59EE03E5)
 F (..\ROBOT\src\robot_debug.c)(0x59E9A430)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\robot_debug.o --omf_browse ..\obj\robot_debug.crf --depend ..\obj\robot_debug.d)
-I (..\ROBOT\inc\robot.h)(0x59EAA2F6)
-I (..\ROBOT\inc\robot_motor.h)(0x59EB039C)
+I (..\ROBOT\inc\robot.h)(0x59EE0484)
 I (..\BSP_DRIVER\inc\bsp.h)(0x59E9A430)
 I (D:\Program Files\Keil\ARM\ARMCC\include\stdio.h)(0x57F606B8)
 I (D:\Program Files\Keil\ARM\ARMCC\include\string.h)(0x57F606B8)
@@ -754,12 +709,13 @@ I (..\BSP_DRIVER\inc\bsp_key.h)(0x59E9A430)
 I (..\BSP_DRIVER\inc\bsp_led.h)(0x59EB16D3)
 I (..\BSP_DRIVER\inc\bsp_usart.h)(0x59EBDB0F)
 I (..\BSP_DRIVER\inc\bsp_timer.h)(0x59E9A430)
-I (..\ROBOT\inc\robot_detect.h)(0x59EB9A4D)
+I (..\ROBOT\inc\robot_motor.h)(0x59EE01E9)
+I (..\ROBOT\inc\robot_detect.h)(0x59EE0484)
 I (..\ROBOT\inc\robot_servo.h)(0x59EAA327)
 I (..\ROBOT\inc\robot_debug.h)(0x59EB76B1)
-F (..\ROBOT\src\robot_detect.c)(0x59EBE7B2)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\robot_detect.o --omf_browse ..\obj\robot_detect.crf --depend ..\obj\robot_detect.d)
-I (..\ROBOT\inc\robot.h)(0x59EAA2F6)
-I (..\ROBOT\inc\robot_motor.h)(0x59EB039C)
+I (..\ROBOT\inc\robot_sensor.h)(0x59EE03E5)
+F (..\ROBOT\src\robot_detect.c)(0x59EE04EF)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\robot_detect.o --omf_browse ..\obj\robot_detect.crf --depend ..\obj\robot_detect.d)
+I (..\ROBOT\inc\robot.h)(0x59EE0484)
 I (..\BSP_DRIVER\inc\bsp.h)(0x59E9A430)
 I (D:\Program Files\Keil\ARM\ARMCC\include\stdio.h)(0x57F606B8)
 I (D:\Program Files\Keil\ARM\ARMCC\include\string.h)(0x57F606B8)
@@ -801,12 +757,13 @@ I (..\BSP_DRIVER\inc\bsp_key.h)(0x59E9A430)
 I (..\BSP_DRIVER\inc\bsp_led.h)(0x59EB16D3)
 I (..\BSP_DRIVER\inc\bsp_usart.h)(0x59EBDB0F)
 I (..\BSP_DRIVER\inc\bsp_timer.h)(0x59E9A430)
-I (..\ROBOT\inc\robot_detect.h)(0x59EB9A4D)
+I (..\ROBOT\inc\robot_motor.h)(0x59EE01E9)
+I (..\ROBOT\inc\robot_detect.h)(0x59EE0484)
 I (..\ROBOT\inc\robot_servo.h)(0x59EAA327)
 I (..\ROBOT\inc\robot_debug.h)(0x59EB76B1)
+I (..\ROBOT\inc\robot_sensor.h)(0x59EE03E5)
 F (..\ROBOT\src\robot_motor.c)(0x59EBE7B3)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\robot_motor.o --omf_browse ..\obj\robot_motor.crf --depend ..\obj\robot_motor.d)
-I (..\ROBOT\inc\robot.h)(0x59EAA2F6)
-I (..\ROBOT\inc\robot_motor.h)(0x59EB039C)
+I (..\ROBOT\inc\robot.h)(0x59EE0484)
 I (..\BSP_DRIVER\inc\bsp.h)(0x59E9A430)
 I (D:\Program Files\Keil\ARM\ARMCC\include\stdio.h)(0x57F606B8)
 I (D:\Program Files\Keil\ARM\ARMCC\include\string.h)(0x57F606B8)
@@ -848,12 +805,13 @@ I (..\BSP_DRIVER\inc\bsp_key.h)(0x59E9A430)
 I (..\BSP_DRIVER\inc\bsp_led.h)(0x59EB16D3)
 I (..\BSP_DRIVER\inc\bsp_usart.h)(0x59EBDB0F)
 I (..\BSP_DRIVER\inc\bsp_timer.h)(0x59E9A430)
-I (..\ROBOT\inc\robot_detect.h)(0x59EB9A4D)
+I (..\ROBOT\inc\robot_motor.h)(0x59EE01E9)
+I (..\ROBOT\inc\robot_detect.h)(0x59EE0484)
 I (..\ROBOT\inc\robot_servo.h)(0x59EAA327)
 I (..\ROBOT\inc\robot_debug.h)(0x59EB76B1)
+I (..\ROBOT\inc\robot_sensor.h)(0x59EE03E5)
 F (..\ROBOT\src\robot_servo.c)(0x59EAA343)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\robot_servo.o --omf_browse ..\obj\robot_servo.crf --depend ..\obj\robot_servo.d)
-I (..\ROBOT\inc\robot.h)(0x59EAA2F6)
-I (..\ROBOT\inc\robot_motor.h)(0x59EB039C)
+I (..\ROBOT\inc\robot.h)(0x59EE0484)
 I (..\BSP_DRIVER\inc\bsp.h)(0x59E9A430)
 I (D:\Program Files\Keil\ARM\ARMCC\include\stdio.h)(0x57F606B8)
 I (D:\Program Files\Keil\ARM\ARMCC\include\string.h)(0x57F606B8)
@@ -895,7 +853,57 @@ I (..\BSP_DRIVER\inc\bsp_key.h)(0x59E9A430)
 I (..\BSP_DRIVER\inc\bsp_led.h)(0x59EB16D3)
 I (..\BSP_DRIVER\inc\bsp_usart.h)(0x59EBDB0F)
 I (..\BSP_DRIVER\inc\bsp_timer.h)(0x59E9A430)
-I (..\ROBOT\inc\robot_detect.h)(0x59EB9A4D)
+I (..\ROBOT\inc\robot_motor.h)(0x59EE01E9)
+I (..\ROBOT\inc\robot_detect.h)(0x59EE0484)
 I (..\ROBOT\inc\robot_servo.h)(0x59EAA327)
 I (..\ROBOT\inc\robot_debug.h)(0x59EB76B1)
+I (..\ROBOT\inc\robot_sensor.h)(0x59EE03E5)
 I (D:\Program Files\Keil\ARM\ARMCC\include\stdarg.h)(0x57F606B8)
+F (..\ROBOT\src\robot_sensor.c)(0x59EE0484)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CORE -I ..\USER -I ..\FWLIB\inc -I ..\BSP_DRIVER\inc -I ..\ROBOT\inc-IE:\学习资料\比赛\华北五省机器人大赛\2017年\VectorRobot\USER\RTE\_Robot-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-I"D:\Program Files\Keil\ARM\CMSIS\Include"-I"D:\Program Files\Keil\ARM\PACK\Keil\STM32F4xx_DFP\2.9.0\Device\Include"-D__UVISION_VERSION="522" -DSTM32F407xx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER --C99-o ..\obj\robot_sensor.o --omf_browse ..\obj\robot_sensor.crf --depend ..\obj\robot_sensor.d)
+I (..\ROBOT\inc\robot.h)(0x59EE0484)
+I (..\BSP_DRIVER\inc\bsp.h)(0x59E9A430)
+I (D:\Program Files\Keil\ARM\ARMCC\include\stdio.h)(0x57F606B8)
+I (D:\Program Files\Keil\ARM\ARMCC\include\string.h)(0x57F606B8)
+I (..\USER\stm32f4xx.h)(0x5710F357)
+I (..\CORE\core_cm4.h)(0x5710F354)
+I (D:\Program Files\Keil\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (..\CORE\core_cmInstr.h)(0x5710F354)
+I (..\CORE\core_cmFunc.h)(0x5710F354)
+I (..\CORE\core_cm4_simd.h)(0x5710F354)
+I (..\USER\system_stm32f4xx.h)(0x5710F357)
+I (..\USER\stm32f4xx_conf.h)(0x5710F357)
+I (..\FWLIB\inc\stm32f4xx_adc.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_crc.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_dbgmcu.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_dma.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_exti.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_flash.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_gpio.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_i2c.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_iwdg.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_pwr.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_rcc.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_rtc.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_sdio.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_spi.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_syscfg.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_tim.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_usart.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_wwdg.h)(0x5710F355)
+I (..\FWLIB\inc\misc.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_cryp.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_hash.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_rng.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_can.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_dac.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x5710F355)
+I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x5710F355)
+I (..\BSP_DRIVER\inc\bsp_key.h)(0x59E9A430)
+I (..\BSP_DRIVER\inc\bsp_led.h)(0x59EB16D3)
+I (..\BSP_DRIVER\inc\bsp_usart.h)(0x59EBDB0F)
+I (..\BSP_DRIVER\inc\bsp_timer.h)(0x59E9A430)
+I (..\ROBOT\inc\robot_motor.h)(0x59EE01E9)
+I (..\ROBOT\inc\robot_detect.h)(0x59EE0484)
+I (..\ROBOT\inc\robot_servo.h)(0x59EAA327)
+I (..\ROBOT\inc\robot_debug.h)(0x59EB76B1)
+I (..\ROBOT\inc\robot_sensor.h)(0x59EE03E5)

@@ -1,13 +1,16 @@
-# include "robot.h"
 # include "bsp.h"
+# include "robot.h"
+
 int main(void)
 { 	
 	bsp_Config();
+	robot_Config();
 	
-	robot_RangingConfig();
-	robot_ModeSwitchConfig();
-	robot_PhotoelectricConfig();
-	robot_MotorConfig();
+//	robot_RangingConfig();
+//	robot_ModeSwitchConfig();
+//	robot_PhotoelectricConfig();
+//	robot_MotorConfig();
+	
 	robot_UpPlatform();
 	
 	while(1)

@@ -11,36 +11,6 @@ uint8_t flag = 0x00;
  uint32_t EdgeTime = 0x0000;
 
 
-void robot_ModeSwitchConfig(void)
-{
-	GPIO_InitTypeDef GPIO_InitStructure;
-	
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG | RCC_AHB1Periph_GPIOD, ENABLE); 
-	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_3;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-	GPIO_Init(GPIOG,&GPIO_InitStructure);
-	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_11;
-	GPIO_Init(GPIOD,&GPIO_InitStructure);
-	
-	GPIO_ResetBits(GPIOG,GPIO_Pin_5 | GPIO_Pin_3);
-	GPIO_ResetBits(GPIOD,GPIO_Pin_13 | GPIO_Pin_11);
-}
-
-uint8_t robot_GetMode(void)
-{
-	uint8_t result = 0x00;
-	
-	result |= PDin(11) << 0;
-	result |= PDin(13) << 1;
-	result |= PGin(3)  << 2;
-	result |= PGin(5)  << 3;	
-	
-	return result;
-}
 
 
 
@@ -100,111 +70,13 @@ uint8_t IsPhoDetected(uint8_t PhoId)
 	return result;
 }
 
-//uint8_t IsRangDetected(uint8_t RangId)
-//{
-//	return (((ADC1ConvValue[RangId]>>4) > DISTANCE)?1:0);
-//}
 
-/*
-*********************************************************************************************************
-*                                          robot_DetectConfig
-*
-* Description: 机器人检测功能初始化函数，包括初始化光电开关，红外测距
-*             
-* Arguments : 无
-*
-* Note(s)   : 无
-*********************************************************************************************************
-*/
-void robot_DetectConfig(void)
-{
-	robot_RangingConfig();
-	robot_PhotoelectricConfig();
-}
 
-/*
-*********************************************************************************************************
-*                                      robot_PhotoelectricConfig    
-*
-* Description: 光电开关初始化函数
-*             
-* Arguments : 无
-*
-* Note(s)   : 无
-*********************************************************************************************************
-*/
-void robot_PhotoelectricConfig(void)
-{
-	GPIO_InitTypeDef GPIO_InitStructure;
-	
-	RCC_AHB1PeriphClockCmd(ROBOT_PHO_RCC_ALL, ENABLE); //
-	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-	
-	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_A_GPIO_PIN;
-	GPIO_Init(ROBOT_PHO_A_GPIO_PORT, &GPIO_InitStructure);
-	GPIO_SetBits(ROBOT_PHO_A_GPIO_PORT, ROBOT_PHO_A_GPIO_PIN);
-	
-	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_B_GPIO_PIN;
-	GPIO_Init(ROBOT_PHO_B_GPIO_PORT, &GPIO_InitStructure);
-	GPIO_SetBits(ROBOT_PHO_B_GPIO_PORT, ROBOT_PHO_B_GPIO_PIN);
 
-	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_C_GPIO_PIN;
-	GPIO_Init(ROBOT_PHO_C_GPIO_PORT, &GPIO_InitStructure);
-	GPIO_SetBits(ROBOT_PHO_C_GPIO_PORT, ROBOT_PHO_C_GPIO_PIN);
 
-	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_D_GPIO_PIN;
-	GPIO_Init(ROBOT_PHO_D_GPIO_PORT, &GPIO_InitStructure);
-	GPIO_SetBits(ROBOT_PHO_D_GPIO_PORT, ROBOT_PHO_D_GPIO_PIN);
-	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_E_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_E_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_E_GPIO_PORT, ROBOT_PHO_E_GPIO_PIN);
 
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_H_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_H_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_H_GPIO_PORT, ROBOT_PHO_H_GPIO_PIN);
 
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_I_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_I_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_I_GPIO_PORT, ROBOT_PHO_I_GPIO_PIN);
 
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_J_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_J_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_J_GPIO_PORT, ROBOT_PHO_J_GPIO_PIN);
-
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_K_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_K_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_K_GPIO_PORT, ROBOT_PHO_K_GPIO_PIN);
-//	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_L_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_L_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_L_GPIO_PORT, ROBOT_PHO_L_GPIO_PIN);
-}
-
-/*
-*********************************************************************************************************
-*                                         robot_RangingConfig 
-*
-* Description: 红外测距传感器初始化函数，采用定时器触发，DMA传输数据
-*             
-* Arguments : 无
-*
-* Note(s)   : 无
-*********************************************************************************************************
-*/
-void robot_RangingConfig(void)
-{	
-	
-	robot_PhoADC_GPIOConfig(); /* ADC引脚初始化 */
-	
-	robot_PhoADC_CHConfig(); /* ADC通道初始化 */
-	
-	robot_PhoADC_TIMConfig(); /*  ADC定时器初始化 */
-	robot_PhoADC_DMAConfig(); /* ADC DMA初始化 */
-}
 
 
 

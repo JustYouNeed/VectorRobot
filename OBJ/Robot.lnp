@@ -17,11 +17,11 @@
 "..\obj\bsp_timer.o"
 "..\obj\bsp_uasrt.o"
 "..\obj\robot.o"
-"..\obj\robot_adc.o"
 "..\obj\robot_debug.o"
 "..\obj\robot_detect.o"
 "..\obj\robot_motor.o"
 "..\obj\robot_servo.o"
+"..\obj\robot_sensor.o"
 --strict --scatter "..\OBJ\Robot.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

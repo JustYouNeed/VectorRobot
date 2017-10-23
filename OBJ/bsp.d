@@ -48,3 +48,4 @@
 ..\obj\bsp.o: ..\ROBOT\inc\robot_servo.h
 ..\obj\bsp.o: ..\ROBOT\inc\robot.h
 ..\obj\bsp.o: ..\ROBOT\inc\robot_debug.h
+..\obj\bsp.o: ..\ROBOT\inc\robot_sensor.h

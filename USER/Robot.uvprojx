@@ -7,10 +7,10 @@
 
   <Targets>
     <Target>
-      <TargetName>LED</TargetName>
+      <TargetName>Robot</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F407ZG</Device>
@@ -48,7 +48,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>..\OBJ\</OutputDirectory>
-          <OutputName>LED</OutputName>
+          <OutputName>Robot</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -335,7 +335,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\FWLIB\inc</IncludePath>
+              <IncludePath>..\CORE;..\USER;..\FWLIB\inc;..\BSP_DRIVER\inc;..\ROBOT\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -397,36 +397,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>HARDWARE</GroupName>
-          <Files>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\LED\led.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>SYSTEM</GroupName>
-          <Files>
-            <File>
-              <FileName>delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\SYSTEM\delay\delay.c</FilePath>
-            </File>
-            <File>
-              <FileName>sys.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\SYSTEM\sys\sys.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\SYSTEM\usart\usart.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>CORE</GroupName>
           <Files>
             <File>
@@ -464,15 +434,85 @@
               <FileType>1</FileType>
               <FilePath>..\FWLIB\src\stm32f4xx_usart.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f4xx_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWLIB\src\stm32f4xx_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWLIB\src\stm32f4xx_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWLIB\src\stm32f4xx_dma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>README</GroupName>
+          <GroupName>BSP_DRIVER</GroupName>
           <Files>
             <File>
-              <FileName>readme.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\readme.txt</FilePath>
+              <FileName>bsp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP_DRIVER\src\bsp.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP_DRIVER\src\bsp_key.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP_DRIVER\src\bsp_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP_DRIVER\src\bsp_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_uasrt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP_DRIVER\src\bsp_uasrt.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ROBOT</GroupName>
+          <Files>
+            <File>
+              <FileName>robot.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ROBOT\src\robot.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ROBOT\src\robot_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_debug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ROBOT\src\robot_debug.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_detect.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ROBOT\src\robot_detect.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ROBOT\src\robot_motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_servo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ROBOT\src\robot_servo.c</FilePath>
             </File>
           </Files>
         </Group>

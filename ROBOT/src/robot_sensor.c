@@ -31,6 +31,12 @@ const uint32_t SampleFreqTable[][2] =
 
 uint8_t SampleTime = 3;
 
+
+void robot_SensorConfig(void)
+{
+	robot_RangingConfig();
+	robot_PhotoelectricConfig();
+}
 /*
 *********************************************************************************************************
 *                                        robot_PhoADC_CHConfig  
@@ -60,13 +66,13 @@ void robot_PhoADC_CHConfig(void)
  
 	
 	//ADC2???
-	ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;  //????12?
-	ADC_InitStructure.ADC_ScanConvMode = ENABLE;   //????????
-	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;  //????????
-	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;  //?????
-	ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_Rising;//??????,???????
-	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_T1_CC1;//???1???1??
-	ADC_InitStructure.ADC_NbrOfConversion = ROBOT_RANG_COUNT;//????14?
+	ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;  //
+	ADC_InitStructure.ADC_ScanConvMode = ENABLE;   //
+	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;  //
+	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;  //
+	ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_Rising;//
+	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_T1_CC1;//
+	ADC_InitStructure.ADC_NbrOfConversion = ROBOT_RANG_COUNT;//
 	ADC_Init(ADC1,&ADC_InitStructure);
 	
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_0, 1, ADC_SampleTime_480Cycles); //
@@ -184,11 +190,6 @@ void robot_PhoADC_DMAConfig(void)
 	DMA_Init(DMA2_Stream0,&DMA_InitStructure);
 	DMA_Cmd(DMA2_Stream0,ENABLE);//
 	
-//	NVIC_InitStructrue.NVIC_IRQChannel = DMA2_Stream0_IRQn;
-//	NVIC_InitStructrue.NVIC_IRQChannelCmd = ENABLE;
-//	NVIC_InitStructrue.NVIC_IRQChannelPreemptionPriority = 
-//	NVIC_InitStructrue.NVIC_IRQChannelSubPriority = 
-//	NVIC_Init(&NVIC_InitStructrue);
 }
 /*
 *********************************************************************************************************
@@ -234,5 +235,90 @@ void robot_PhoADC_TIMConfig(void)
 
 	TIM_CtrlPWMOutputs(TIM1, ENABLE); 
 }
+
+/*
+*********************************************************************************************************
+*                                      robot_PhotoelectricConfig    
+*
+* Description: 光电开关初始化函数
+*             
+* Arguments : 无
+*
+* Note(s)   : 无
+*********************************************************************************************************
+*/
+void robot_PhotoelectricConfig(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	
+	RCC_AHB1PeriphClockCmd(ROBOT_PHO_RCC_ALL, ENABLE); //
+	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	
+	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_A_GPIO_PIN;
+	GPIO_Init(ROBOT_PHO_A_GPIO_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(ROBOT_PHO_A_GPIO_PORT, ROBOT_PHO_A_GPIO_PIN);
+	
+	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_B_GPIO_PIN;
+	GPIO_Init(ROBOT_PHO_B_GPIO_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(ROBOT_PHO_B_GPIO_PORT, ROBOT_PHO_B_GPIO_PIN);
+
+	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_C_GPIO_PIN;
+	GPIO_Init(ROBOT_PHO_C_GPIO_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(ROBOT_PHO_C_GPIO_PORT, ROBOT_PHO_C_GPIO_PIN);
+
+	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_D_GPIO_PIN;
+	GPIO_Init(ROBOT_PHO_D_GPIO_PORT, &GPIO_InitStructure);
+	GPIO_SetBits(ROBOT_PHO_D_GPIO_PORT, ROBOT_PHO_D_GPIO_PIN);
+	
+//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_E_GPIO_PIN;
+//	GPIO_Init(ROBOT_PHO_E_GPIO_PORT, &GPIO_InitStructure);
+//	GPIO_SetBits(ROBOT_PHO_E_GPIO_PORT, ROBOT_PHO_E_GPIO_PIN);
+
+//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_H_GPIO_PIN;
+//	GPIO_Init(ROBOT_PHO_H_GPIO_PORT, &GPIO_InitStructure);
+//	GPIO_SetBits(ROBOT_PHO_H_GPIO_PORT, ROBOT_PHO_H_GPIO_PIN);
+
+//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_I_GPIO_PIN;
+//	GPIO_Init(ROBOT_PHO_I_GPIO_PORT, &GPIO_InitStructure);
+//	GPIO_SetBits(ROBOT_PHO_I_GPIO_PORT, ROBOT_PHO_I_GPIO_PIN);
+
+//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_J_GPIO_PIN;
+//	GPIO_Init(ROBOT_PHO_J_GPIO_PORT, &GPIO_InitStructure);
+//	GPIO_SetBits(ROBOT_PHO_J_GPIO_PORT, ROBOT_PHO_J_GPIO_PIN);
+
+//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_K_GPIO_PIN;
+//	GPIO_Init(ROBOT_PHO_K_GPIO_PORT, &GPIO_InitStructure);
+//	GPIO_SetBits(ROBOT_PHO_K_GPIO_PORT, ROBOT_PHO_K_GPIO_PIN);
+//	
+//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_L_GPIO_PIN;
+//	GPIO_Init(ROBOT_PHO_L_GPIO_PORT, &GPIO_InitStructure);
+//	GPIO_SetBits(ROBOT_PHO_L_GPIO_PORT, ROBOT_PHO_L_GPIO_PIN);
+}
+
+/*
+*********************************************************************************************************
+*                                         robot_RangingConfig 
+*
+* Description: 红外测距传感器初始化函数，采用定时器触发，DMA传输数据
+*             
+* Arguments : 无
+*
+* Note(s)   : 无
+*********************************************************************************************************
+*/
+void robot_RangingConfig(void)
+{	
+	
+	robot_PhoADC_GPIOConfig(); /* ADC引脚初始化 */
+	
+	robot_PhoADC_CHConfig(); /* ADC通道初始化 */
+	
+	robot_PhoADC_TIMConfig(); /*  ADC定时器初始化 */
+	robot_PhoADC_DMAConfig(); /* ADC DMA初始化 */
+}
+
 
 

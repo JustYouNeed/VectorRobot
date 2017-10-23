@@ -1,6 +1,5 @@
 ..\obj\robot_detect.o: ..\ROBOT\src\robot_detect.c
 ..\obj\robot_detect.o: ..\ROBOT\inc\robot.h
-..\obj\robot_detect.o: ..\ROBOT\inc\robot_motor.h
 ..\obj\robot_detect.o: ..\BSP_DRIVER\inc\bsp.h
 ..\obj\robot_detect.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\robot_detect.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\string.h
@@ -44,7 +43,9 @@
 ..\obj\robot_detect.o: ..\BSP_DRIVER\inc\bsp_led.h
 ..\obj\robot_detect.o: ..\BSP_DRIVER\inc\bsp_usart.h
 ..\obj\robot_detect.o: ..\BSP_DRIVER\inc\bsp_timer.h
+..\obj\robot_detect.o: ..\ROBOT\inc\robot_motor.h
 ..\obj\robot_detect.o: ..\ROBOT\inc\robot_detect.h
 ..\obj\robot_detect.o: ..\ROBOT\inc\robot_servo.h
 ..\obj\robot_detect.o: ..\ROBOT\inc\robot.h
 ..\obj\robot_detect.o: ..\ROBOT\inc\robot_debug.h
+..\obj\robot_detect.o: ..\ROBOT\inc\robot_sensor.h
