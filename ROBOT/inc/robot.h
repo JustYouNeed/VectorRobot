@@ -71,7 +71,7 @@ extern Robot_Dev Robot;
 
 void robot_ModeSwitchConfig(void);
 uint8_t robot_GetMode(void);
-
+void robot_ParaConfig(void);
 void robot_Config(void);
 void robot_ShowState(void);
 # endif

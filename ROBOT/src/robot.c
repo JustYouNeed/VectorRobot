@@ -17,9 +17,39 @@ void robot_Config(void)
 {
 	robot_SensorConfig();
 	robot_ModeSwitchConfig();
+	robot_ParaConfig();
 	robot_MotorConfig();
 }
 
+
+void robot_ParaConfig(void)
+{
+	uint8_t mode = 0x00;
+	
+	Robot.dirction = POSITIVE;		/* 机器人初始方向为正方向 */
+	Robot.M1_Dirction = POSITIVE; /* 电机正转 */
+	Robot.M2_Dirction = POSITIVE; /* 电机正转 */
+	Robot.M1_pwm = 0;             /* 初速度为零 */
+	Robot.M2_pwm = 0;							 /**/
+	Robot.IsChess = 0;						 /* 标志没有检测到棋子 */
+	Robot.IsEdge = 0;							 /* 模块没有检测到边缘 */
+	Robot.HandDirction = 0x00; 		 /* 上边身子默认正方向 */
+	Robot.FrontLeft_TurnTime = 100;
+	Robot.FrontRight_TurnTime = 100;
+	mode = robot_GetMode();
+	
+	switch(mode)
+	{
+		case 0x01:Robot.RobotMode = CHESS_MODE;break;
+		case 0x02:Robot.RobotMode = ATTACK_MODE;break;
+		default:Robot.RobotMode = CHESS_MODE;break;
+	}
+	if(Robot.RobotMode == CHESS_MODE)
+		Robot.ModeSpeed = 200;
+	else if(Robot.RobotMode == ATTACK_MODE)
+		Robot.ModeSpeed = 300;
+	
+}
 
 
 void robot_ShowState(void)

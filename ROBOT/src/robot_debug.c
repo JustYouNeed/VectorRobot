@@ -2,10 +2,6 @@
 
 void robot_DebugConfig(void)
 {
-# if DEBUG_SENSOR_REPORT > 0u
-	robot_DebugTimerConfig();
-	ANO_Init(115200);
-# endif
 }
 
 void robot_DebugRanging(void)

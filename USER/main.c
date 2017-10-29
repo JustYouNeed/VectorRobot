@@ -15,14 +15,14 @@ int main(void)
 	
 	while(1)
 	{
-		if((ADC1ConvValue[ROBOT_GRAY] >> 2) < 80)
-		{
-			M1_Stop();
-			M2_Stop();
-		}else
-		{
+//		if((ADC1ConvValue[ROBOT_GRAY] >> 2) < 80)
+//		{
+//			M1_Stop();
+//			M2_Stop();
+//		}else
+//		{
 			robot_Detect();
-		}
+//		}
 	}
 }
 

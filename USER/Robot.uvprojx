@@ -490,11 +490,6 @@
               <FilePath>..\ROBOT\src\robot.c</FilePath>
             </File>
             <File>
-              <FileName>robot_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\ROBOT\src\robot_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>robot_debug.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\ROBOT\src\robot_debug.c</FilePath>
@@ -513,6 +508,11 @@
               <FileName>robot_servo.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\ROBOT\src\robot_servo.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_sensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ROBOT\src\robot_sensor.c</FilePath>
             </File>
           </Files>
         </Group>

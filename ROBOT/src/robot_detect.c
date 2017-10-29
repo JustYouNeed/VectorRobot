@@ -30,7 +30,7 @@ void robot_Detect(void)
 {
 	robot_EgdeDetect();
 # if DEBUG_PERI_DETECT > 0u  /* 宏开关，选择是否开启棋子检测功能，调试时使用 */
-	if(!Robot.IsEdge)
+	if(!Robot.IsEdge && ((ADC1ConvValue[ROBOT_GRAY] >> 2) > 80) )
 		robot_PeriDetect();
 # endif
 }
@@ -272,8 +272,8 @@ void robot_PeriDetect(void)
 		Robot.M2_Dirction = POSITIVE;		/* 右边电机正转 */
 
 		/* 设置机器人电机转动速度 */
-		Robot.M1_pwm = 250;  
-		Robot.M2_pwm = 250;  
+		Robot.M1_pwm = 300;  
+		Robot.M2_pwm = 300;  
 		robot_MotorMove(100);
 	}else 
 # endif
@@ -288,9 +288,9 @@ void robot_PeriDetect(void)
 		Robot.M2_Dirction = NEGETIVE; /* 右边电机反转 */
 		
 		/* 设置机器人电机转动速度 */
-		Robot.M1_pwm = 250;
-		Robot.M2_pwm = 250;
-		robot_MotorMove(100);
+		Robot.M1_pwm = 400;
+		Robot.M2_pwm = 400;
+		robot_MotorMove(60);
 	}else 
 # endif
 # if DEBUG_RANG_BACK_LEFT > 0u
@@ -304,9 +304,9 @@ void robot_PeriDetect(void)
 		Robot.M2_Dirction = NEGETIVE;
 		
 		/* 设置机器人电机转动速度 */
-		Robot.M1_pwm = 250;
-		Robot.M2_pwm = 250;
-		robot_MotorMove(100);
+		Robot.M1_pwm = 360;
+		Robot.M2_pwm = 360;
+		robot_MotorMove(60);
 	}else 
 # endif
 # if DEBUG_RANG_BACK_RIGHT > 0u
@@ -320,10 +320,10 @@ void robot_PeriDetect(void)
 		Robot.M2_Dirction = POSITIVE;  /* 右边电机正转*/
 		
 		/* 设置机器人电机转动速度 */
-		Robot.M1_pwm = 250;
-		Robot.M2_pwm = 250;
+		Robot.M1_pwm = 360;
+		Robot.M2_pwm = 360;
 		
-		robot_MotorMove(100);
+		robot_MotorMove(60);
 	}else 
 # endif
 # if DEBUG_RANG_LEFT > 0u
@@ -337,8 +337,8 @@ void robot_PeriDetect(void)
 		Robot.M2_Dirction = POSITIVE; /* 右边电机正转 */	
 
 		/* 设置电机转动速度 */
-		Robot.M1_pwm = 300;
-		Robot.M2_pwm = 300;
+		Robot.M1_pwm = 400;
+		Robot.M2_pwm = 400;
 		robot_MotorMove(150);
 	}else 
 # endif
@@ -353,8 +353,8 @@ void robot_PeriDetect(void)
 		Robot.M2_Dirction = NEGETIVE; /* 右边电机反转 */	
 
 		/* 设置电机转动速度 */
-		Robot.M1_pwm = 250;
-		Robot.M2_pwm = 250;
+		Robot.M1_pwm = 400;
+		Robot.M2_pwm = 400;
 		robot_MotorMove(100);
 	}else  /* 如果机器人周边都没有目标 */
 # endif
@@ -501,6 +501,11 @@ void robot_EgdeDetect(void)
 					Robot.M1_pwm = 160;
 					Robot.M2_pwm = 200;
 				}			
+				if((ADC1ConvValue[ROBOT_GRAY] >> 2) < 100)
+				{
+					Robot.M1_pwm = 140;
+					Robot.M2_pwm = 140;
+				}
 				robot_MotorMove(0);  /* 保持电机转动，不需要延时 */
 				Robot.IsEdge = 0;    /* 清除边缘检测标志 */
 				flag = 0;            /* 清除边缘计数标志 */

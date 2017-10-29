@@ -335,9 +335,12 @@ void robot_UpPlatform(void)
 void robot_MotorMove(uint16_t time)
 {	
 	robot_SetDirction();
-	
+	TIM_SetCompare2(TIM4,0);
+	bsp_TimerDelayUs(100);
 	TIM_SetCompare2(TIM4, Robot.M1_pwm);
-
+	
+	TIM_SetCompare1(TIM4,0);
+	bsp_TimerDelayUs(100);
 	TIM_SetCompare1(TIM4, Robot.M2_pwm);
 	
 	if(time >0)
