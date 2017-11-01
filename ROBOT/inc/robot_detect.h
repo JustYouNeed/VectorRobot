@@ -21,7 +21,7 @@ void robot_Detect(void);
 
 uint8_t IsPhoDetected(uint8_t PhoId);
 
-
+void robot_UndetectEdge(void);
 void robot_IsPosChange(void);
 //uint8_t IsRangDetected(uint8_t RangId);
 

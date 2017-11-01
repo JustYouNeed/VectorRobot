@@ -4,12 +4,13 @@
 int main(void)
 { 	
 	bsp_Config();
-	robot_Config();
+	bsp_TimerSoftStart(1,20,TIMER_MODE_AUTO);
+	bsp_TimerSoftSetCallBack(1,bsp_KeyScan);
 	
-//	robot_RangingConfig();
-//	robot_ModeSwitchConfig();
-//	robot_PhotoelectricConfig();
-//	robot_MotorConfig();
+	bsp_TimerSoftStart(2,100,TIMER_MODE_AUTO);
+	bsp_TimerSoftSetCallBack(2,robot_ShowState);
+	
+	robot_Config();
 	
 	robot_UpPlatform();
 	

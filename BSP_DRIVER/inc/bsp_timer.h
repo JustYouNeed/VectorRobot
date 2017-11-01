@@ -36,7 +36,7 @@
 #endif
 
 
-# define SOFT_TIMER_COUNT			5
+# define SOFT_TIMER_COUNT			4
 
 typedef void (*_cbTimerCallBack)(void);
 
@@ -50,6 +50,13 @@ typedef struct
 	_cbTimerCallBack _cbTimer;
 	
 }SoftTimer_Str;
+
+
+typedef struct
+{
+	uint16_t uiPeriod;
+	_cbTimerCallBack _cbTimer;
+}HardTimer_Str,*pHardTimer_Str;
 
 typedef enum
 {
@@ -69,10 +76,17 @@ _cbTimerCallBack bsp_TimerSoftGetCallBack(uint8_t ucTimerId);
 void bsp_TimerDelayMs(uint32_t ui_nMs);
 void bsp_TimerDelayUs(uint32_t ui_nUs);
 
+
 int8_t bsp_TimerHardConfig(uint8_t TIMx, uint32_t uiPeriod);
 void bsp_TimerHardStart(uint8_t TIMx);
 uint8_t bsp_TimerHardStop(uint8_t TIMx);
 _cbTimerCallBack bsp_TimerHardSetCallBack(uint8_t TIMx, _cbTimerCallBack _cbTimer);
+
+
+void bsp_TimerPWMConfig(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, TIM_TypeDef* TIMx, uint8_t ucChannel, uint32_t uiFreq, uint32_t uiDutyCycle);
+void bsp_TimerPWMGPIOConfig(GPIO_TypeDef *GPIOx,uint16_t GPIO_PinX, TIM_TypeDef* TIMx, uint8_t ucChannel);
+
+
 
 # endif
 

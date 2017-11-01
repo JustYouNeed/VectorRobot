@@ -50,5 +50,6 @@ void robot_DebugGray(void);
 
 void robot_DebugTimerConfig(void);
 void robot_DataReport(void);
+void robot_DataReport(void);
 # endif
 

@@ -1,5 +1,5 @@
 # include "robot.h"
-
+# include "bsp.h"
 #define SWITCH1 PGin(5)
 #define SWITCH2 PGin(3)
 #define SWITCH3 PDin(13)
@@ -58,27 +58,10 @@ uint8_t IsPhoDetected(uint8_t PhoId)
 		case ROBOT_PHO_B:result = ((ROBOT_PHO_B_GPIO_PORT->IDR & ROBOT_PHO_B_GPIO_PIN) == 0)?0:1;break;
 		case ROBOT_PHO_C:result = ((ROBOT_PHO_C_GPIO_PORT->IDR & ROBOT_PHO_C_GPIO_PIN) == 0)?0:1;break;
 		case ROBOT_PHO_D:result = ((ROBOT_PHO_D_GPIO_PORT->IDR & ROBOT_PHO_D_GPIO_PIN) == 0)?0:1;break;
-//		case ROBOT_PHO_E:result = PFin(12);break;
-//	
-//	  case ROBOT_PHO_H:result = PCin(3);break;
-//		case ROBOT_PHO_I:result = PCin(1);break;
-//		case ROBOT_PHO_J:result = PCin(0);break;
-//		case ROBOT_PHO_K:result = PEin(6);break;
-//		case ROBOT_PHO_L:result = PEin(5);break;
 		default:break;
 	}
 	return result;
 }
-
-
-
-
-
-
-
-
-
-
 
 /*
 *********************************************************************************************************
@@ -92,7 +75,7 @@ uint8_t IsPhoDetected(uint8_t PhoId)
 *********************************************************************************************************
 */
 
-uint32_t DetectCount = 0;
+static uint32_t DetectCount = 0;
 void robot_PeriDetect(void)
 {
 # if DEBUG_RANG_FRONT > 0u
@@ -132,22 +115,20 @@ void robot_PeriDetect(void)
 //					runActionGroup(0,1);
 			}
 			
-			if((ADC1ConvValue[ROBOT_RANG_B] >>4) > 120)
+			while((ADC1ConvValue[ROBOT_RANG_B] >>4) > 90)
 			{
+				Robot.IsChess = 1;
 				DetectCount ++;
-				if(DetectCount > 3) 
+				if(DetectCount > 10) 
 				{
 					/* 速度必须要有一个上限 */
 					if(Robot.M1_pwm < 900)
-						Robot.M1_pwm += 50 ;
+						Robot.M1_pwm += 100 ;
 					if(Robot.M2_pwm < 900)
-						Robot.M2_pwm += 50;
+						Robot.M2_pwm += 100;
 					DetectCount = 0;
 				}
-			}else
-			{
-				Robot.M1_pwm = 200;
-				Robot.M2_pwm = 200;
+				robot_MotorMove(100);
 			}
 		}
 
@@ -207,24 +188,22 @@ void robot_PeriDetect(void)
 //				else
 //					runActionGroup(0,1);
 			}
-			
-			
-			if((ADC1ConvValue[ROBOT_RANG_J] >>4) > 120)
+			while((ADC1ConvValue[ROBOT_RANG_J] >>4) > 90)
 			{
 				DetectCount ++;
-				if(DetectCount > 4) 
+				Robot.IsChess = 1;
+				if(DetectCount > 10) 
 				{
+					Robot.M1_pwm += 100 ;
+					Robot.M2_pwm += 100 ;
 					/* 速度必须要有一个上限 */
 					if(Robot.M1_pwm < 900)
-						Robot.M1_pwm += 50 ;
+						Robot.M1_pwm = 900 ;
 					if(Robot.M2_pwm < 900)
-						Robot.M2_pwm += 50;
+						Robot.M2_pwm = 900;
 					DetectCount = 0;
 				}
-			}else
-			{
-				Robot.M1_pwm = 200;
-				Robot.M2_pwm = 200;
+				robot_MotorMove(100);
 			}
 		}
 		
@@ -259,6 +238,7 @@ void robot_PeriDetect(void)
 				}
 			}
 		}
+		
 		robot_MotorMove(200);
 	}else	
 # endif
@@ -359,6 +339,8 @@ void robot_PeriDetect(void)
 	}else  /* 如果机器人周边都没有目标 */
 # endif
 	{
+		DetectCount = 0;
+		Robot.IsChess = 0;
 		/* 机器人保持当前行进方向 */
 		Robot.M1_Dirction = Robot.M2_Dirction = Robot.dirction;
 		robot_SetDirction();
@@ -382,109 +364,83 @@ void robot_PeriDetect(void)
 */
 void robot_EgdeDetect(void)
 {
-	
-	if(ADC1ConvValue[ROBOT_GRAY]>>2 < 200)
+	if(ADC1ConvValue[ROBOT_GRAY]>>2 < 200)  /* 只有离边缘一定距离才开启边缘检测 */
 	{
 			if(IsPhoDetected(ROBOT_PHO_A) && !Robot.IsEdge)  /* 如果左前方出界 */
 			{
+					bsp_LedToggle(3);
+				if(flag != 1) /* 保证边缘计数器只加一次 */
+				{
+					EdgeTime++;
+					flag = 1;
+				}
 				Robot.IsEdge = FRONT_LEFT;
 				if(Robot.RobotMode == CHESS_MODE)
 				{
 					robot_OutOfBounds(FRONT_LEFT);  /* 执行回程函数 */
 
-					if(flag != 1)
-					{
-						EdgeTime++;
-						flag = 1;
-					}
 				}else
 				{
-					if((ADC1ConvValue[ROBOT_RANG_B] >> 4) < 110)
+					if((ADC1ConvValue[ROBOT_RANG_B] >> 4) < 110)  /* 战斗模式的时候不需要后退 */
 					{
 						robot_OutOfBounds(FRONT_LEFT);  /* 执行回程函数 */
-
-					if(flag != 1)
-					{
-						EdgeTime++;
-						flag = 1;
-					}
 					}
 				}
 			}else if(IsPhoDetected(ROBOT_PHO_B) && !Robot.IsEdge)  /* 如果右前方出界 */
 			{
+					bsp_LedToggle(3);
+				if(flag != 1)
+				{
+					EdgeTime++;
+					flag = 1;
+				}
 				if( Robot.RobotMode == CHESS_MODE)
 				{
 					Robot.IsEdge = FRONT_RIGHT;
 					robot_OutOfBounds(FRONT_RIGHT);  /* 右前方出界 */
-
-					if(flag != 1)
-					{
-						EdgeTime++;
-						flag = 1;
-					}
-			}else
+				}else
 				{
 					if((ADC1ConvValue[ROBOT_RANG_B] >> 4) < 110)
 					{
 						robot_OutOfBounds(FRONT_RIGHT);  /* 执行回程函数 */
-
-					if(flag != 1)
-					{
-						EdgeTime++;
-						flag = 1;
-					}
 					}
 				}
 			}else if(IsPhoDetected(ROBOT_PHO_C) && !Robot.IsEdge)  /* 如果左后方出界 */
 			{
+					bsp_LedToggle(3);
+				if(flag != 1) /* 保证边缘计数器只加一次 */
+				{
+					EdgeTime++;
+					flag = 1;
+				}
 				if(Robot.RobotMode == CHESS_MODE)
 				{
-					Robot.IsEdge = BACK_LEFT;
 					robot_OutOfBounds(BACK_LEFT);  /* 左后方出界 */
-					
-
-					if(flag != 1)
-					{
-						EdgeTime++;
-						flag = 1;
-					}
 				}else
 				{
 					if((ADC1ConvValue[ROBOT_RANG_J] >> 4) < 110)
 					{
 						robot_OutOfBounds(BACK_LEFT);  /* 执行回程函数 */
-
-					if(flag != 1)
-					{
-						EdgeTime++;
-						flag = 1;
-					}
 					}
 				}
-			}	else if(IsPhoDetected(ROBOT_PHO_D) && !Robot.IsEdge)		/* 如果右后方出界 */
+			}else if(IsPhoDetected(ROBOT_PHO_D) && !Robot.IsEdge)		/* 如果右后方出界 */
 			{		
+					bsp_LedToggle(3);
+				if(flag != 1) /* 保证边缘计数器只加一次 */
+				{
+					EdgeTime++;
+					flag = 1;
+				}
+				
 				if(Robot.RobotMode == CHESS_MODE)
 				{
 					Robot.IsEdge = BACK_RIGHT;
 					robot_OutOfBounds(BACK_RIGHT);  /* 右后方出界 */
-					
-
-					if(flag != 1)
-					{
-						EdgeTime++;
-						flag = 1;
-					}
 				}else
 				{
 					if((ADC1ConvValue[ROBOT_RANG_J] >> 4) < 110)
 					{
 						robot_OutOfBounds(BACK_RIGHT);  /* 执行回程函数 */
-
-					if(flag != 1)
-					{
-						EdgeTime++;
-						flag = 1;
-					}
 					}
 				}
 			}else  /* 没有出界 */
@@ -492,53 +448,65 @@ void robot_EgdeDetect(void)
 				Robot.M1_Dirction = Robot.dirction;
 				Robot.M2_Dirction = Robot.dirction;
 
-				if(EdgeTime % 2 == 0)/*  每两次切换一次方向 */
+				if(EdgeTime % 2 == 0)
 				{
 					Robot.M1_pwm = 200;
 					Robot.M2_pwm = 160;
-				}else
+				}else 
 				{
 					Robot.M1_pwm = 160;
 					Robot.M2_pwm = 200;
-				}			
-				if((ADC1ConvValue[ROBOT_GRAY] >> 2) < 100)
+				}
+				if((ADC1ConvValue[ROBOT_GRAY] >> 2) < 90)/* 在擂台边缘速度减慢 */
 				{
 					Robot.M1_pwm = 140;
 					Robot.M2_pwm = 140;
 				}
 				robot_MotorMove(0);  /* 保持电机转动，不需要延时 */
 				Robot.IsEdge = 0;    /* 清除边缘检测标志 */
-				flag = 0;            /* 清除边缘计数标志 */
+				if((ADC1ConvValue[ROBOT_GRAY] >> 2) > 110)
+					flag = 0;            /* 清除边缘计数标志 */
 			}
-	}else  /* 没有出界 */
-	{
-//		Robot.M1_Dirction = Robot.M2_Dirction = Robot.dirction;
-		
-//		/*  每两次切换一次方向 */
-//		if(EdgeTime % 2 == 0)
-//		{
-//			Robot.M1_pwm = 220;
-//			Robot.M2_pwm = 160;
-//		}else
-//		{
-//			Robot.M1_pwm = 160;
-//			Robot.M2_pwm = 220;
-//		}
-		
-//		robot_MotorMove(0);  /* 保持电机转动，不需要延时 */
-//		Robot.IsEdge = 0;    /* 清除边缘检测标志 */
-//		flag = 0;            /* 清除边缘计数标志 */
 	}
 }
 
 
-static uint16_t LastGrayValue = 0x00;
-static uint16_t CurGrayValue = 0x00;
+static uint8_t DetectEdgeFlag = 0;
+void robot_UndetectEdge(void)
+{
 
+	if(DetectEdgeFlag)
+	{
+		DetectEdgeFlag = 0;
+		Robot.M1_pwm = 200;
+		Robot.M2_pwm = 160;
+	}else 
+	{
+		DetectEdgeFlag = 1;
+		Robot.M1_pwm = 160;
+		Robot.M2_pwm = 200;
+	}
+	robot_MotorMove(0);  /* 保持电机转动，不需要延时 */
+}
+
+
+/*
+*********************************************************************************************************
+*                                    robot_IsPosChange      
+*
+* Description: 判断机器人的位置变化情况
+*             
+* Arguments : 
+*
+* Note(s)   : 实际使用并不理想，所以该函数没有用上
+*********************************************************************************************************
+*/
 void robot_IsPosChange(void)
 {
-	int result = 0x00;
 	int GrayDiff = 0x00;
+	static uint16_t LastGrayValue = 0x00;
+	static uint16_t CurGrayValue = 0x00;
+	
 	CurGrayValue = ADC1ConvValue[ROBOT_GRAY] >> 2;
 	
 	GrayDiff = CurGrayValue - LastGrayValue;

@@ -1,13 +1,6 @@
 # include "bsp.h"
 # include "stdio.h"
 #include <stdarg.h>
-//# include "string.h"
-uint8_t isUartRxCompleted;
-
-
-
-
-
 /* 如果使能串口1，则定义串口1的数据 */
 # if USART1_EN > 0u
 	static Usart_Str Usart1_Info;
@@ -116,7 +109,7 @@ Usart_Str *bsp_UsartGetStr(COM_PORT_ENUM Port)
 	else 	if(Port == COM2)
 	{
 		# if USART2_EN > 0u
-			return &Usart1_Info;
+			return &Usart2_Info;
 		# else
 			return 0;
 		# endif
@@ -124,7 +117,7 @@ Usart_Str *bsp_UsartGetStr(COM_PORT_ENUM Port)
 	else 	if(Port == COM3)
 	{
 		# if USART3_EN > 0u
-			return &Usart1_Info;
+			return &Usart3_Info;
 		# else
 			return 0;
 		# endif
@@ -132,7 +125,7 @@ Usart_Str *bsp_UsartGetStr(COM_PORT_ENUM Port)
 	else 	if(Port == COM4)
 	{
 		# if USART4_EN > 0u
-			return &Usart1_Info;
+			return &Usart4_Info;
 		# else
 			return 0;
 		# endif
@@ -140,7 +133,7 @@ Usart_Str *bsp_UsartGetStr(COM_PORT_ENUM Port)
 	else 	if(Port == COM5)
 	{
 		# if USART5_EN > 0u
-			return &Usart1_Info;
+			return &Usart5_Info;
 		# else
 			return 0;
 		# endif
@@ -148,7 +141,7 @@ Usart_Str *bsp_UsartGetStr(COM_PORT_ENUM Port)
 	else 	if(Port == COM6)
 	{
 		# if USART6_EN > 0u
-			return &Usart1_Info;
+			return &Usart6_Info;
 		# else
 			return 0;
 		# endif

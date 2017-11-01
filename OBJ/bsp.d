@@ -42,10 +42,3 @@
 ..\obj\bsp.o: ..\BSP_DRIVER\inc\bsp_led.h
 ..\obj\bsp.o: ..\BSP_DRIVER\inc\bsp_usart.h
 ..\obj\bsp.o: ..\BSP_DRIVER\inc\bsp_timer.h
-..\obj\bsp.o: ..\ROBOT\inc\robot.h
-..\obj\bsp.o: ..\ROBOT\inc\robot_motor.h
-..\obj\bsp.o: ..\ROBOT\inc\robot_detect.h
-..\obj\bsp.o: ..\ROBOT\inc\robot_servo.h
-..\obj\bsp.o: ..\ROBOT\inc\robot.h
-..\obj\bsp.o: ..\ROBOT\inc\robot_debug.h
-..\obj\bsp.o: ..\ROBOT\inc\robot_sensor.h

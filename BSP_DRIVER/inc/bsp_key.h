@@ -18,16 +18,16 @@
 	# define KEY_DOWN_PORT	GPIOE
 	# define KEY_DOWN_PIN	GPIO_Pin_6
 # else
-	# define RCC_KEY_ALL	(RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOA)
+	# define RCC_KEY_ALL	(RCC_AHB1Periph_GPIOE)
 	
-	# define KEY_UP_PORT	GPIOA
-	# define KEY_UP_PIN		GPIO_Pin_8
+	# define KEY_UP_PORT	GPIOE
+	# define KEY_UP_PIN		GPIO_Pin_4
 	
-	# define KEY_OK_PORT	GPIOC
-	# define KEY_OK_PIN		GPIO_Pin_9
+	# define KEY_OK_PORT	GPIOE
+	# define KEY_OK_PIN		GPIO_Pin_5
 	
-	# define KEY_DOWN_PORT	GPIOC
-	# define KEY_DOWN_PIN	GPIO_Pin_8
+	# define KEY_DOWN_PORT	GPIOE
+	# define KEY_DOWN_PIN	GPIO_Pin_6
 # endif
 
 

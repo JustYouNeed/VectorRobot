@@ -36,7 +36,8 @@ void robot_ParaConfig(void)
 	Robot.HandDirction = 0x00; 		 /* 上边身子默认正方向 */
 	Robot.FrontLeft_TurnTime = 100;
 	Robot.FrontRight_TurnTime = 100;
-	mode = robot_GetMode();
+	
+	mode = robot_GetMode();  /* 获取机器人运行模式 */
 	
 	switch(mode)
 	{
@@ -72,9 +73,10 @@ void robot_ModeSwitchConfig(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
 	GPIO_Init(GPIOG,&GPIO_InitStructure);
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_11;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_11 | GPIO_Pin_9;
 	GPIO_Init(GPIOD,&GPIO_InitStructure);
 	
+	GPIO_SetBits(GPIOD, GPIO_Pin_9);
 	GPIO_ResetBits(GPIOG,GPIO_Pin_5 | GPIO_Pin_3);
 	GPIO_ResetBits(GPIOD,GPIO_Pin_13 | GPIO_Pin_11);
 }

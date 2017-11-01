@@ -83,19 +83,11 @@ void robot_PhoADC_CHConfig(void)
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_5, 6, ADC_SampleTime_480Cycles); //
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_6, 7, ADC_SampleTime_480Cycles); //
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_7, 8, ADC_SampleTime_480Cycles); //
-//	ADC_RegularChannelConfig(ADC1,ADC_Channel_12, 9, ADC_SampleTime_3Cycles); //
-//	ADC_RegularChannelConfig(ADC1,ADC_Channel_8, 9, ADC_SampleTime_3Cycles); //
-//	ADC_RegularChannelConfig(ADC1,ADC_Channel_9, 10, ADC_SampleTime_3Cycles); //
-//	ADC_RegularChannelConfig(ADC1,ADC_Channel_10, 11, ADC_SampleTime_3Cycles); //
-//	ADC_RegularChannelConfig(ADC1,ADC_Channel_11, 12, ADC_SampleTime_3Cycles); //
-//	ADC_RegularChannelConfig(ADC1,ADC_Channel_12, 13, ADC_SampleTime_3Cycles); //
-//	ADC_RegularChannelConfig(ADC1,ADC_Channel_13, 14, ADC_SampleTime_3Cycles); //
 	ADC_RegularChannelConfig(ADC1,ADC_Channel_14, 9, ADC_SampleTime_3Cycles); //
-//	ADC_RegularChannelConfig(ADC1,ADC_Channel_15, 16, ADC_SampleTime_3Cycles); //
 	
 	ADC_DMARequestAfterLastTransferCmd(ADC1,ENABLE);//
-	ADC_DMACmd(ADC1,ENABLE);//??DMA
-	ADC_Cmd(ADC1,ENABLE);	//??ADC1
+	ADC_DMACmd(ADC1,ENABLE);
+	ADC_Cmd(ADC1,ENABLE);	
 }
 /*
 *********************************************************************************************************
@@ -111,47 +103,59 @@ void robot_PhoADC_CHConfig(void)
 void robot_PhoADC_GPIOConfig(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
+	/*  使能红外测距传感器引脚时钟，因为A-K的引脚时钟一样，所以只要使能A的，但是灰度的不一样  */
+	bsp_GPIOClcokCmd(ROBOT_RANG_A_GPIO_PORT);
+//	bsp_GPIOClcokCmd(ROBOT_RANG_B_GPIO_PORT);
+//	bsp_GPIOClcokCmd(ROBOT_RANG_C_GPIO_PORT);
+//	bsp_GPIOClcokCmd(ROBOT_RANG_D_GPIO_PORT);
+//	bsp_GPIOClcokCmd(ROBOT_RANG_H_GPIO_PORT);
+//	bsp_GPIOClcokCmd(ROBOT_RANG_I_GPIO_PORT);
+//	bsp_GPIOClcokCmd(ROBOT_RANG_J_GPIO_PORT);
+//	bsp_GPIOClcokCmd(ROBOT_RANG_K_GPIO_PORT);
+	bsp_GPIOClcokCmd(ROBOT_GRAY_GPIO_PORT);
 	
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOB ,ENABLE);	//
+//	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOB ,ENABLE);	//
 	
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;	//
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	//
 
-//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 |
-																GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);	
-	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
-																
-	GPIO_Init(GPIOC, &GPIO_InitStructure);	
-	
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 |
+//																GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7;
+//	GPIO_Init(GPIOA, &GPIO_InitStructure);	
+//	
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+//																
+//	GPIO_Init(GPIOC, &GPIO_InitStructure);	
+//	
 //	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5;
 //	GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_A_GPIO_PIN;
+	GPIO_Init(ROBOT_RANG_A_GPIO_PORT, &GPIO_InitStructure);		
+
+	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_B_GPIO_PIN;
+	GPIO_Init(ROBOT_RANG_B_GPIO_PORT, &GPIO_InitStructure);	
 	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_B_GPIO_PIN;
-//	GPIO_Init(ROBOT_RANG_B_GPIO_PORT, &GPIO_InitStructure);	
-//	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_C_GPIO_PIN;
-//	GPIO_Init(ROBOT_RANG_C_GPIO_PORT, &GPIO_InitStructure);	
-//	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_D_GPIO_PIN;
-//	GPIO_Init(ROBOT_RANG_D_GPIO_PORT, &GPIO_InitStructure);	
-//	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_H_GPIO_PIN;
-//	GPIO_Init(ROBOT_RANG_H_GPIO_PORT, &GPIO_InitStructure);	
-//	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_I_GPIO_PIN;
-//	GPIO_Init(ROBOT_RANG_I_GPIO_PORT, &GPIO_InitStructure);	
-//	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_J_GPIO_PIN;
-//	GPIO_Init(ROBOT_RANG_J_GPIO_PORT, &GPIO_InitStructure);	
-//	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_K_GPIO_PIN;
-//	GPIO_Init(ROBOT_RANG_K_GPIO_PORT, &GPIO_InitStructure);	
+	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_C_GPIO_PIN;
+	GPIO_Init(ROBOT_RANG_C_GPIO_PORT, &GPIO_InitStructure);	
 	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_GRAY_GPIO_PIN;
-//	GPIO_Init(ROBOT_GRAY_GPIO_PORT, &GPIO_InitStructure);	
+	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_D_GPIO_PIN;
+	GPIO_Init(ROBOT_RANG_D_GPIO_PORT, &GPIO_InitStructure);	
+	
+	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_H_GPIO_PIN;
+	GPIO_Init(ROBOT_RANG_H_GPIO_PORT, &GPIO_InitStructure);	
+	
+	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_I_GPIO_PIN;
+	GPIO_Init(ROBOT_RANG_I_GPIO_PORT, &GPIO_InitStructure);	
+	
+	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_J_GPIO_PIN;
+	GPIO_Init(ROBOT_RANG_J_GPIO_PORT, &GPIO_InitStructure);	
+	
+	GPIO_InitStructure.GPIO_Pin = ROBOT_RANG_K_GPIO_PIN;
+	GPIO_Init(ROBOT_RANG_K_GPIO_PORT, &GPIO_InitStructure);	
+	
+	GPIO_InitStructure.GPIO_Pin = ROBOT_GRAY_GPIO_PIN;
+	GPIO_Init(ROBOT_GRAY_GPIO_PORT, &GPIO_InitStructure);	
 }
 
 /*
@@ -251,7 +255,11 @@ void robot_PhotoelectricConfig(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	RCC_AHB1PeriphClockCmd(ROBOT_PHO_RCC_ALL, ENABLE); //
+//	RCC_AHB1PeriphClockCmd(ROBOT_PHO_RCC_ALL, ENABLE); //
+	bsp_GPIOClcokCmd(ROBOT_PHO_A_GPIO_PORT);
+	bsp_GPIOClcokCmd(ROBOT_PHO_B_GPIO_PORT);
+	bsp_GPIOClcokCmd(ROBOT_PHO_C_GPIO_PORT);
+	bsp_GPIOClcokCmd(ROBOT_PHO_D_GPIO_PORT);
 	
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
@@ -272,30 +280,6 @@ void robot_PhotoelectricConfig(void)
 	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_D_GPIO_PIN;
 	GPIO_Init(ROBOT_PHO_D_GPIO_PORT, &GPIO_InitStructure);
 	GPIO_SetBits(ROBOT_PHO_D_GPIO_PORT, ROBOT_PHO_D_GPIO_PIN);
-	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_E_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_E_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_E_GPIO_PORT, ROBOT_PHO_E_GPIO_PIN);
-
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_H_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_H_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_H_GPIO_PORT, ROBOT_PHO_H_GPIO_PIN);
-
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_I_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_I_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_I_GPIO_PORT, ROBOT_PHO_I_GPIO_PIN);
-
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_J_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_J_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_J_GPIO_PORT, ROBOT_PHO_J_GPIO_PIN);
-
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_K_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_K_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_K_GPIO_PORT, ROBOT_PHO_K_GPIO_PIN);
-//	
-//	GPIO_InitStructure.GPIO_Pin = ROBOT_PHO_L_GPIO_PIN;
-//	GPIO_Init(ROBOT_PHO_L_GPIO_PORT, &GPIO_InitStructure);
-//	GPIO_SetBits(ROBOT_PHO_L_GPIO_PORT, ROBOT_PHO_L_GPIO_PIN);
 }
 
 /*

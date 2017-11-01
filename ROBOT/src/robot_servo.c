@@ -13,7 +13,7 @@
 #define GET_HIGH_BYTE(A) ((uint8_t)((A) >> 8))
 //宏函数 获得A的高八位
 
-extern uint8_t isUartRxCompleted;
+uint8_t isUartRxCompleted;
 
 uint8_t LobotTxBuf[128];  //发送缓存
 uint8_t LobotRxBuf[16];

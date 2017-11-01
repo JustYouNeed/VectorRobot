@@ -48,7 +48,11 @@ void bsp_LedGPIOConfig(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(LED1_GPIO_PORT, &GPIO_InitStructure);
 # else
-	RCC_AHB1PeriphClockCmd(RCC_LED_ALL, ENABLE);
+//	RCC_AHB1PeriphClockCmd(RCC_LED_ALL, ENABLE);
+	bsp_GPIOClcokCmd(LED0_GPIO_PORT);
+	bsp_GPIOClcokCmd(LED1_GPIO_PORT);
+	bsp_GPIOClcokCmd(LED2_GPIO_PORT);
+	
 	
   GPIO_InitStructure.GPIO_Pin = LED0_GPIO_PIN;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
@@ -65,9 +69,10 @@ void bsp_LedGPIOConfig(void)
   GPIO_InitStructure.GPIO_PuPd = LED2_GPIO_MODE;
   GPIO_Init(LED2_GPIO_PORT, &GPIO_InitStructure);
 	
-	GPIO_ResetBits(LED0_GPIO_PORT, LED0_GPIO_PIN);
-	GPIO_ResetBits(LED1_GPIO_PORT, LED1_GPIO_PIN);
-	GPIO_ResetBits(LED2_GPIO_PORT, LED2_GPIO_PIN);
+	
+	GPIO_SetBits(LED0_GPIO_PORT, LED0_GPIO_PIN);
+	GPIO_SetBits(LED1_GPIO_PORT, LED1_GPIO_PIN);
+	GPIO_SetBits(LED2_GPIO_PORT, LED2_GPIO_PIN);
 # endif
 }
 
@@ -94,13 +99,10 @@ void bsp_LedToggle(uint8_t LedId)
 		{
 			case 0:LED0_GPIO_PORT->ODR ^= LED0_GPIO_PIN;break;
 			case 1:LED1_GPIO_PORT->ODR ^= LED1_GPIO_PIN;break;
-			case 2:LED2_GPIO_PORT->ODR ^= LED0_GPIO_PIN;break;
-			default:
-			{
-				LED0_GPIO_PORT->ODR ^= LED0_GPIO_PIN;
-				LED1_GPIO_PORT->ODR ^= LED1_GPIO_PIN;
-				LED2_GPIO_PORT->ODR ^= LED2_GPIO_PIN;
-			}break;
+			case 2:LED2_GPIO_PORT->ODR ^= LED2_GPIO_PIN;break;
+			default:LED0_GPIO_PORT->ODR ^= LED0_GPIO_PIN;
+							LED1_GPIO_PORT->ODR ^= LED1_GPIO_PIN;
+							LED2_GPIO_PORT->ODR ^= LED2_GPIO_PIN;break;
 		}
 	}
 }
@@ -124,10 +126,9 @@ void bsp_LedOn(uint8_t LedId)
 		# ifdef VECTOR_F4
 			case 0:LED0_GPIO_PORT->BSRRH = LED0_GPIO_PIN;break;
 			case 1:LED1_GPIO_PORT->BSRRH = LED1_GPIO_PIN;break;
-			case 2:LED2_GPIO_PORT->BSRRH = LED2_GPIO_PIN;break;
-			default:LED0_GPIO_PORT->BSRRH = LED0_GPIO_PIN;
-							 LED1_GPIO_PORT->BSRRH = LED1_GPIO_PIN;
-							 break;
+			case 2:LED0_GPIO_PORT->BSRRH = LED0_GPIO_PIN;
+						 LED1_GPIO_PORT->BSRRH = LED1_GPIO_PIN;
+						 break;
 		# else
 			case 0:LED0_GPIO_PORT->ODR &= ~LED0_GPIO_PIN;break;
 			case 1:LED1_GPIO_PORT->ODR &= ~LED1_GPIO_PIN;break;
@@ -135,6 +136,7 @@ void bsp_LedOn(uint8_t LedId)
 						 LED1_GPIO_PORT->ODR &= ~LED1_GPIO_PIN;
 						 break;
 		# endif
+			default:break;
 		}
 	}
 }
@@ -158,10 +160,8 @@ void bsp_LedOff(uint8_t LedId)
 		# ifdef VECTOR_F4
 			case 0:LED0_GPIO_PORT->BSRRL = LED0_GPIO_PIN;break;
 			case 1:LED1_GPIO_PORT->BSRRL = LED1_GPIO_PIN;break;
-			case 2:LED2_GPIO_PORT->BSRRL = LED2_GPIO_PIN;break;
-			default:LED0_GPIO_PORT->BSRRL = LED0_GPIO_PIN;
-							LED1_GPIO_PORT->BSRRL = LED1_GPIO_PIN;
-							LED2_GPIO_PORT->BSRRL = LED2_GPIO_PIN;
+			case 2:LED0_GPIO_PORT->BSRRL = LED0_GPIO_PIN;
+						 LED1_GPIO_PORT->BSRRL = LED1_GPIO_PIN;
 						 break;
 		# else
 			case 0:LED0_GPIO_PORT->ODR = LED0_GPIO_PIN;break;
@@ -170,6 +170,7 @@ void bsp_LedOff(uint8_t LedId)
 						 LED1_GPIO_PORT->ODR = LED1_GPIO_PIN;
 						 break;
 		# endif
+			default:break;
 		}
 	}
 }

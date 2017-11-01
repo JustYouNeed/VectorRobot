@@ -1,4 +1,5 @@
 # include "bsp.h"
+
 static volatile uint32_t s_uiDelayCount = 0;
 static volatile uint8_t s_ucTimeOutFlag = 0;
 
@@ -393,4 +394,141 @@ void TIM5_IRQHandler(void)
 {
 	
 }
+
+
+
+
+void bsp_TimerPWMGPIOConfig(GPIO_TypeDef *GPIOx,uint16_t GPIO_PinX, TIM_TypeDef* TIMx, uint8_t ucChannel)
+{
+	GPIO_InitTypeDef  GPIO_InitStructure;
+	
+# ifdef VECTOR_F1
+# elif defined VECTOR_F4
+	bsp_GPIOClcokCmd(GPIOx);
+	bsp_TIMClockCmd(TIMx);
+	
+		/* 配置GPIO */
+	GPIO_InitStructure.GPIO_Pin = GPIO_PinX;	/* 带入的形参 */
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP ;
+	GPIO_Init(GPIOx, &GPIO_InitStructure);
+
+	/* 连接到AF功能 */
+	GPIO_PinAFConfig(GPIOx, bsp_GetPinSource(GPIO_PinX), bsp_GetTIMPinAF(TIMx));
+# endif	
+}
+
+
+
+
+void bsp_TimerPWMConfig(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, TIM_TypeDef* TIMx, uint8_t ucChannel, uint32_t uiFreq, uint32_t uiDutyCycle)
+{
+	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	TIM_OCInitTypeDef  TIM_OCInitStructure;
+	uint16_t usPeriod;
+	uint16_t usPrescaler;
+	uint32_t uiTIMxCLK;
+	
+	bsp_TimerPWMGPIOConfig(GPIOx, GPIO_Pin, TIMx, ucChannel);
+	
+	    /*-----------------------------------------------------------------------
+		system_stm32f4xx.c 文件中 void SetSysClock(void) 函数对时钟的配置如下：
+
+		HCLK = SYSCLK / 1     (AHB1Periph)
+		PCLK2 = HCLK / 2      (APB2Periph)
+		PCLK1 = HCLK / 4      (APB1Periph)
+
+		因为APB1 prescaler != 1, 所以 APB1上的TIMxCLK = PCLK1 x 2 = SystemCoreClock / 2;
+		因为APB2 prescaler != 1, 所以 APB2上的TIMxCLK = PCLK2 x 2 = SystemCoreClock;
+
+		APB1 定时器有 TIM2, TIM3 ,TIM4, TIM5, TIM6, TIM6, TIM12, TIM13,TIM14
+		APB2 定时器有 TIM1, TIM8 ,TIM9, TIM10, TIM11
+
+	----------------------------------------------------------------------- */
+	if ((TIMx == TIM1) || (TIMx == TIM8) || (TIMx == TIM9) || (TIMx == TIM10) || (TIMx == TIM11))
+	{
+		/* APB2 定时器 */
+		uiTIMxCLK = SystemCoreClock;
+	}
+	else	/* APB1 定时器 */
+	{
+		uiTIMxCLK = SystemCoreClock / 2;
+	}
+
+	if (uiFreq < 100)
+	{
+		usPrescaler = 10000 - 1;					/* 分频比 = 10000 */
+		usPeriod =  (uiTIMxCLK / 10000) / uiFreq  - 1;		/* 自动重装的值 */
+	}
+	else if (uiFreq < 3000)
+	{
+		usPrescaler = 100 - 1;					/* 分频比 = 100 */
+		usPeriod =  (uiTIMxCLK / 100) / uiFreq  - 1;		/* 自动重装的值 */
+	}
+	else	/* 大于4K的频率，无需分频 */
+	{
+		usPrescaler = 0;					/* 分频比 = 1 */
+		usPeriod = uiTIMxCLK / uiFreq - 1;	/* 自动重装的值 */
+	}
+	
+		/* Time base configuration */
+	TIM_TimeBaseStructure.TIM_Period = usPeriod;
+	TIM_TimeBaseStructure.TIM_Prescaler = usPrescaler;
+	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0x0000;		/* TIM1 和 TIM8 必须设置 */	
+
+	TIM_TimeBaseInit(TIMx, &TIM_TimeBaseStructure);
+
+	/* PWM1 Mode configuration: Channel1 */
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+	TIM_OCInitStructure.TIM_Pulse = (uiDutyCycle * usPeriod) / 10000;
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+	
+	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Disable;	/* only for TIM1 and TIM8. */	
+	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;			/* only for TIM1 and TIM8. */		
+	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;		/* only for TIM1 and TIM8. */
+	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;		/* only for TIM1 and TIM8. */
+	
+		if (ucChannel == 1)
+	{
+		TIM_OC1Init(TIMx, &TIM_OCInitStructure);
+		TIM_OC1PreloadConfig(TIMx, TIM_OCPreload_Enable);
+	}
+	else if (ucChannel == 2)
+	{
+		TIM_OC2Init(TIMx, &TIM_OCInitStructure);
+		TIM_OC2PreloadConfig(TIMx, TIM_OCPreload_Enable);
+	}
+	else if (ucChannel == 3)
+	{
+		TIM_OC3Init(TIMx, &TIM_OCInitStructure);
+		TIM_OC3PreloadConfig(TIMx, TIM_OCPreload_Enable);
+	}
+	else if (ucChannel == 4)
+	{
+		TIM_OC4Init(TIMx, &TIM_OCInitStructure);
+		TIM_OC4PreloadConfig(TIMx, TIM_OCPreload_Enable);
+	}
+	
+	TIM_ARRPreloadConfig(TIMx, ENABLE);
+
+	/* TIMx enable counter */
+	TIM_Cmd(TIMx, ENABLE);
+
+	/* 下面这句话对于TIM1和TIM8是必须的，对于TIM2-TIM6则不必要 */
+	if ((TIMx == TIM1) || (TIMx == TIM8))
+	{
+		TIM_CtrlPWMOutputs(TIMx, ENABLE);
+	}
+}
+
+
+
+
+
+
 

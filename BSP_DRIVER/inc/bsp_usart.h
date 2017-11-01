@@ -10,7 +10,7 @@
 # else
 	# define USART1_EN  1u
 	# define USART2_EN  0u
-	# define USART3_EN  0u
+	# define USART3_EN  1u
 	# define USART4_EN  0u
 	# define USART5_EN	0u
 	# define USART6_EN	0u
