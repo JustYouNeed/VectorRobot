@@ -46,9 +46,9 @@ void robot_ParaConfig(void)
 		default:Robot.RobotMode = CHESS_MODE;break;
 	}
 	if(Robot.RobotMode == CHESS_MODE)
-		Robot.ModeSpeed = 200;
+		Robot.ModeSpeed = 150;
 	else if(Robot.RobotMode == ATTACK_MODE)
-		Robot.ModeSpeed = 300;
+		Robot.ModeSpeed = 200;
 	
 }
 

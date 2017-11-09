@@ -6,6 +6,8 @@
 
 
 # define DISTANCE							110
+# define EDGE_GRAY_VALUE					80
+# define EDGE_GRAY_LIMIT_VALUE		180
 # define IsRangDetected(RangId)  (((ADC1ConvValue[RangId]>>4) > DISTANCE)?1:0)
 
 

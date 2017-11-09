@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\Robot.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\Robot.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Wed Nov 01 21:47:13 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Tue Nov 07 20:55:03 2017
 <BR><P>
 <H3>Maximum Stack Usage =        116 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -740,11 +740,11 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b6]"></a>TIM_SetCompare1</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(i.TIM_SetCompare1))
-<BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
+<BR><BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
 </UL>
 
 <P><STRONG><a name="[b4]"></a>TIM_SetCompare2</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_tim.o(i.TIM_SetCompare2))
-<BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
+<BR><BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
 </UL>
 
 <P><STRONG><a name="[b7]"></a>TIM_TimeBaseInit</STRONG> (Thumb, 104 bytes, Stack size 0 bytes, stm32f4xx_tim.o(i.TIM_TimeBaseInit))
@@ -908,13 +908,13 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_PRIMASK
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_UpPlatform
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
 </UL>
 
 <P><STRONG><a name="[b5]"></a>bsp_TimerDelayUs</STRONG> (Thumb, 76 bytes, Stack size 20 bytes, bsp_timer.o(i.bsp_TimerDelayUs))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = bsp_TimerDelayUs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
 </UL>
 
 <P><STRONG><a name="[82]"></a>bsp_TimerSoftConfig</STRONG> (Thumb, 138 bytes, Stack size 16 bytes, bsp_timer.o(i.bsp_TimerSoftConfig))
@@ -1023,11 +1023,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a9]"></a>robot_EgdeDetect</STRONG> (Thumb, 444 bytes, Stack size 8 bytes, robot_detect.o(i.robot_EgdeDetect))
+<P><STRONG><a name="[a9]"></a>robot_EgdeDetect</STRONG> (Thumb, 788 bytes, Stack size 8 bytes, robot_detect.o(i.robot_EgdeDetect))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = robot_EgdeDetect &rArr; robot_OutOfBounds &rArr; robot_MotorMove &rArr; bsp_TimerDelayUs
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_OutOfBounds
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
+<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_OutOfBounds
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsPhoDetected
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedToggle
 </UL>
@@ -1069,7 +1069,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorConfig
 </UL>
 
-<P><STRONG><a name="[ae]"></a>robot_MotorMove</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, robot_motor.o(i.robot_MotorMove))
+<P><STRONG><a name="[ad]"></a>robot_MotorMove</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, robot_motor.o(i.robot_MotorMove))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = robot_MotorMove &rArr; bsp_TimerDelayUs
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_SetDirction
@@ -1079,7 +1079,7 @@ Global Symbols
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCompare1
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_UpPlatform
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_OutOfBounds
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_OutOfBounds
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_PeriDetect
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_EgdeDetect
 </UL>
@@ -1109,15 +1109,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorConfig
 </UL>
 
-<P><STRONG><a name="[ad]"></a>robot_OutOfBounds</STRONG> (Thumb, 254 bytes, Stack size 8 bytes, robot_motor.o(i.robot_OutOfBounds))
+<P><STRONG><a name="[ae]"></a>robot_OutOfBounds</STRONG> (Thumb, 254 bytes, Stack size 8 bytes, robot_motor.o(i.robot_OutOfBounds))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = robot_OutOfBounds &rArr; robot_MotorMove &rArr; bsp_TimerDelayUs
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
+<BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_EgdeDetect
 </UL>
 
-<P><STRONG><a name="[a7]"></a>robot_ParaConfig</STRONG> (Thumb, 106 bytes, Stack size 4 bytes, robot.o(i.robot_ParaConfig))
+<P><STRONG><a name="[a7]"></a>robot_ParaConfig</STRONG> (Thumb, 104 bytes, Stack size 4 bytes, robot.o(i.robot_ParaConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = robot_ParaConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_GetMode
@@ -1125,12 +1125,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_Config
 </UL>
 
-<P><STRONG><a name="[aa]"></a>robot_PeriDetect</STRONG> (Thumb, 1042 bytes, Stack size 8 bytes, robot_detect.o(i.robot_PeriDetect))
+<P><STRONG><a name="[aa]"></a>robot_PeriDetect</STRONG> (Thumb, 884 bytes, Stack size 8 bytes, robot_detect.o(i.robot_PeriDetect))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = robot_PeriDetect &rArr; runActionGroup &rArr; uartWriteBuf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runActionGroup
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_SetDirction
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_Detect
 </UL>
@@ -1213,7 +1213,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b3]"></a>robot_SetDirction</STRONG> (Thumb, 98 bytes, Stack size 0 bytes, robot_motor.o(i.robot_SetDirction))
-<BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
+<BR><BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_PeriDetect
 </UL>
 
@@ -1228,7 +1228,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = robot_UpPlatform &rArr; runActionGroup &rArr; uartWriteBuf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runActionGroup
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;robot_MotorMove
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_TimerDelayMs
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_LedToggle
 </UL>

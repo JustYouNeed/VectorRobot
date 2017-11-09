@@ -8,8 +8,10 @@
 uint16_t ADC1ConvValue[ROBOT_RANG_COUNT];
 uint8_t IsActionCompelete = 0x00;
 uint8_t flag = 0x00;
- uint32_t EdgeTime = 0x0000;
+uint32_t EdgeTime = 0x0000;
 
+static uint32_t FirstEdgeDetect = 0;
+static uint32_t SecondEdgeDetect = 0;
 
 
 
@@ -89,7 +91,7 @@ void robot_PeriDetect(void)
 		
 		if(Robot.RobotMode == CHESS_MODE)  /* 推棋子模式 */
 		{
-			if(ADC1ConvValue[ROBOT_GRAY]>>2 <= 190)
+			if(ADC1ConvValue[ROBOT_GRAY]>>2 <= EDGE_GRAY_LIMIT_VALUE)
 			{
 				Robot.M1_pwm = 100;
 				Robot.M2_pwm = 100;
@@ -98,21 +100,24 @@ void robot_PeriDetect(void)
 				Robot.M1_pwm = Robot.ModeSpeed;
 				Robot.M2_pwm = Robot.ModeSpeed;
 			}
+			if(ADC1ConvValue[ROBOT_GRAY]>>2 < 200)
+			{
+				switch(Robot.dirction)
+				{
+					case POSITIVE:runActionGroup(2,1);break;
+					case NEGETIVE:runActionGroup(4,1);break;
+				}
+			}
 		}else   /* 战斗模式 */
 		{
-			if(Robot.dirction == POSITIVE)
+			/* 只要在对方在一定范围内才进行动作 */
+			if((ADC1ConvValue[ROBOT_RANG_J] >> 4) >130)
 			{
-				if((ADC1ConvValue[ROBOT_RANG_B] >> 4) >130) 
-					runActionGroup(2,1);
-//				else
-//					runActionGroup(0,1);
-			}
-			else if(Robot.dirction == NEGETIVE)
-			{
-				if((ADC1ConvValue[ROBOT_RANG_J] >> 4) >130) 
-					runActionGroup(4,1);
-//				else
-//					runActionGroup(0,1);
+				switch(Robot.dirction)
+				{
+					case POSITIVE:runActionGroup(2,1);break;
+					case NEGETIVE:runActionGroup(4,1);break;
+				}
 			}
 			
 			while((ADC1ConvValue[ROBOT_RANG_B] >>4) > 90)
@@ -133,22 +138,27 @@ void robot_PeriDetect(void)
 		}
 
 		/* 对灰度进行判断，只有在外面一圈才进行动作 */
-		if((ADC1ConvValue[ROBOT_GRAY]>>2) <= 200)
-		{
-			if(Robot.RobotMode == CHESS_MODE)  /* 如果是推棋子模式 */
-			{
-				/* 如果方向为正 */
-				if(Robot.dirction == POSITIVE )
-				{
-					runActionGroup(2,1);
-					Robot.HandDirction = 0x01;
-				}else if(Robot.dirction == NEGETIVE)
-				{
-					runActionGroup(4,1);
-					Robot.HandDirction = 0x02;
-				}
-			}
-		}
+			
+//				if(ADC1ConvValue[ROBOT_GRAY]>>2 <= 200)
+//				{
+					/* 根据机器人的不同模式设置上身的动作 */
+//					if(Robot.RobotMode == ATTACK_MODE)   /* 战斗模式 */
+//					{
+//						/* 如果机器人朝向为正，并且没有执行朝向为正的动作时 */
+//						if(Robot.dirction == POSITIVE && IsActionCompelete != 0x01)
+//						{
+//							runActionGroup(2,1);   /* 执行动作 */
+//							Robot.HandDirction = 0x01;  /* 设置上身朝向 */
+//							IsActionCompelete = 0x01;   /* 该标志为防止重复执行动作 */
+//						}
+//						else if(Robot.dirction == NEGETIVE && IsActionCompelete != 0x02)
+//						{
+//							runActionGroup(4,1);
+//							Robot.HandDirction = 0x02;
+//							IsActionCompelete = 0x02;
+//						}
+//					}
+//				}
 		robot_MotorMove(200);
 	}else 
 # endif
@@ -163,7 +173,7 @@ void robot_PeriDetect(void)
 		/*  设置电机转动速度为机器人模式速度 */
 		if(Robot.RobotMode == CHESS_MODE)
 		{
-			if(ADC1ConvValue[ROBOT_GRAY]>>2 <= 180)
+			if(ADC1ConvValue[ROBOT_GRAY]>>2 <= EDGE_GRAY_LIMIT_VALUE)
 			{
 				Robot.M1_pwm = 100;
 				Robot.M2_pwm = 100;
@@ -172,21 +182,24 @@ void robot_PeriDetect(void)
 				Robot.M1_pwm = Robot.ModeSpeed;
 				Robot.M2_pwm = Robot.ModeSpeed;
 			}
+			if(ADC1ConvValue[ROBOT_GRAY]>>2 < 200)
+			{
+				switch(Robot.dirction)
+				{
+					case POSITIVE:runActionGroup(2,1);break;
+					case NEGETIVE:runActionGroup(4,1);break;
+				}
+			}
 		}else
 		{
-			if(Robot.dirction == POSITIVE)
+			/* 只要在对方在一定范围内才进行动作 */
+			if((ADC1ConvValue[ROBOT_RANG_J] >> 4) >130)
 			{
-				if((ADC1ConvValue[ROBOT_RANG_B] >> 4) >130) 
-					runActionGroup(3,1);
-//				else
-//					runActionGroup(0,1);
-			}
-			else if(Robot.dirction == NEGETIVE)
-			{
-				if((ADC1ConvValue[ROBOT_RANG_J] >> 4) >130) 
-					runActionGroup(4,1);
-//				else
-//					runActionGroup(0,1);
+				switch(Robot.dirction)
+				{
+					case POSITIVE:runActionGroup(2,1);break;
+					case NEGETIVE:runActionGroup(4,1);break;
+				}
 			}
 			while((ADC1ConvValue[ROBOT_RANG_J] >>4) > 90)
 			{
@@ -207,37 +220,37 @@ void robot_PeriDetect(void)
 			}
 		}
 		
-		if(ADC1ConvValue[ROBOT_GRAY]>>2 <= 200)
-		{
-			/* 根据机器人的不同模式设置上身的动作 */
-			if(Robot.RobotMode == ATTACK_MODE)   /* 战斗模式 */
-			{
-				/* 如果机器人朝向为正，并且没有执行朝向为正的动作时 */
-				if(Robot.dirction == POSITIVE && IsActionCompelete != 0x01)
-				{
-					runActionGroup(2,1);   /* 执行动作 */
-					Robot.HandDirction = 0x01;  /* 设置上身朝向 */
-					IsActionCompelete = 0x01;   /* 该标志为防止重复执行动作 */
-				}
-				else if(Robot.dirction == NEGETIVE && IsActionCompelete != 0x02)
-				{
-					runActionGroup(4,1);
-					Robot.HandDirction = 0x02;
-					IsActionCompelete = 0x02;
-				}
-			}else if(Robot.RobotMode == CHESS_MODE)  /* 推棋子模式 */
-			{
-				if(Robot.dirction == POSITIVE)
-				{
-					runActionGroup(2,1);
-					Robot.HandDirction = 0x01;
-				}else if(Robot.dirction == NEGETIVE)
-				{
-					runActionGroup(4,1);
-					Robot.HandDirction = 0x02;
-				}
-			}
-		}
+//		if(ADC1ConvValue[ROBOT_GRAY]>>2 <= 200)
+//		{
+//			/* 根据机器人的不同模式设置上身的动作 */
+//			if(Robot.RobotMode == ATTACK_MODE)   /* 战斗模式 */
+//			{
+//				/* 如果机器人朝向为正，并且没有执行朝向为正的动作时 */
+//				if(Robot.dirction == POSITIVE && IsActionCompelete != 0x01)
+//				{
+//					runActionGroup(2,1);   /* 执行动作 */
+//					Robot.HandDirction = 0x01;  /* 设置上身朝向 */
+//					IsActionCompelete = 0x01;   /* 该标志为防止重复执行动作 */
+//				}
+//				else if(Robot.dirction == NEGETIVE && IsActionCompelete != 0x02)
+//				{
+//					runActionGroup(4,1);
+//					Robot.HandDirction = 0x02;
+//					IsActionCompelete = 0x02;
+//				}
+//			}else if(Robot.RobotMode == CHESS_MODE)  /* 推棋子模式 */
+//			{
+//				if(Robot.dirction == POSITIVE)
+//				{
+//					runActionGroup(2,1);
+//					Robot.HandDirction = 0x01;
+//				}else if(Robot.dirction == NEGETIVE)
+//				{
+//					runActionGroup(4,1);
+//					Robot.HandDirction = 0x02;
+//				}
+//			}
+//		}
 		
 		robot_MotorMove(200);
 	}else	
@@ -268,8 +281,8 @@ void robot_PeriDetect(void)
 		Robot.M2_Dirction = NEGETIVE; /* 右边电机反转 */
 		
 		/* 设置机器人电机转动速度 */
-		Robot.M1_pwm = 400;
-		Robot.M2_pwm = 400;
+		Robot.M1_pwm = 360;
+		Robot.M2_pwm = 360;
 		robot_MotorMove(60);
 	}else 
 # endif
@@ -375,9 +388,20 @@ void robot_EgdeDetect(void)
 					flag = 1;
 				}
 				Robot.IsEdge = FRONT_LEFT;
+				
 				if(Robot.RobotMode == CHESS_MODE)
-				{
-					robot_OutOfBounds(FRONT_LEFT);  /* 执行回程函数 */
+				{				
+					if((ADC1ConvValue[ROBOT_GRAY] >> 2) < EDGE_GRAY_VALUE)
+						{
+							Robot.M1_Dirction = NEGETIVE;
+							Robot.M2_Dirction = NEGETIVE;
+							Robot.dirction = NEGETIVE;
+							Robot.M1_pwm = 200;
+							Robot.M2_pwm = 100;
+							robot_MotorMove(400);
+							EdgeTime--;
+						}else
+							robot_OutOfBounds(FRONT_LEFT);  /* 执行回程函数 */
 
 				}else
 				{
@@ -394,10 +418,21 @@ void robot_EgdeDetect(void)
 					EdgeTime++;
 					flag = 1;
 				}
+				Robot.IsEdge = FRONT_RIGHT;
 				if( Robot.RobotMode == CHESS_MODE)
 				{
-					Robot.IsEdge = FRONT_RIGHT;
-					robot_OutOfBounds(FRONT_RIGHT);  /* 右前方出界 */
+					if((ADC1ConvValue[ROBOT_GRAY] >> 2) < EDGE_GRAY_VALUE)
+						{
+							Robot.M1_Dirction = NEGETIVE;
+							Robot.M2_Dirction = NEGETIVE;
+							Robot.dirction = NEGETIVE;
+							Robot.M1_pwm = 100;
+							Robot.M2_pwm = 200;
+							robot_MotorMove(400);
+							EdgeTime--;
+						}
+					else
+						robot_OutOfBounds(FRONT_RIGHT);  /* 右前方出界 */
 				}else
 				{
 					if((ADC1ConvValue[ROBOT_RANG_B] >> 4) < 110)
@@ -415,6 +450,16 @@ void robot_EgdeDetect(void)
 				}
 				if(Robot.RobotMode == CHESS_MODE)
 				{
+					if((ADC1ConvValue[ROBOT_GRAY] >> 2) < EDGE_GRAY_VALUE)
+						{
+							Robot.M1_Dirction = POSITIVE;
+							Robot.M2_Dirction = POSITIVE;
+							Robot.dirction = POSITIVE;
+							Robot.M1_pwm = 100;
+							Robot.M2_pwm = 200;
+							robot_MotorMove(400);
+							EdgeTime--;
+						}else
 					robot_OutOfBounds(BACK_LEFT);  /* 左后方出界 */
 				}else
 				{
@@ -431,10 +476,20 @@ void robot_EgdeDetect(void)
 					EdgeTime++;
 					flag = 1;
 				}
-				
+				Robot.IsEdge = BACK_RIGHT;
 				if(Robot.RobotMode == CHESS_MODE)
 				{
-					Robot.IsEdge = BACK_RIGHT;
+					if((ADC1ConvValue[ROBOT_GRAY] >> 2) < EDGE_GRAY_VALUE)
+						{
+							Robot.M1_Dirction = POSITIVE;
+							Robot.M2_Dirction = POSITIVE;
+							Robot.dirction = POSITIVE;
+							Robot.M1_pwm = 100;
+							Robot.M2_pwm = 200;
+							robot_MotorMove(400);
+							EdgeTime--;
+						}
+					else
 					robot_OutOfBounds(BACK_RIGHT);  /* 右后方出界 */
 				}else
 				{
@@ -443,7 +498,31 @@ void robot_EgdeDetect(void)
 						robot_OutOfBounds(BACK_RIGHT);  /* 执行回程函数 */
 					}
 				}
-			}else  /* 没有出界 */
+			}
+			/* 用灰度来检测边缘，因为棋子过大的时候前面边缘检测有时会失灵 */
+			else if((ADC1ConvValue[ROBOT_GRAY] >> 2) < 80 && (!IsRangDetected(ROBOT_RANG_B) || !IsRangDetected(ROBOT_RANG_J)))
+			{
+				
+//				if(Robot.dirction == POSITIVE)
+//				{
+//					Robot.dirction = NEGETIVE;
+//					Robot.M1_Dirction = NEGETIVE;
+//					Robot.M2_Dirction = NEGETIVE;
+//					Robot.M1_pwm = 120;
+//					Robot.M2_pwm = 120;
+//					robot_MotorMove(300);
+//				}
+//				else if(Robot.dirction == NEGETIVE)
+//				{
+//					Robot.dirction = POSITIVE;
+//					Robot.M1_Dirction = POSITIVE;
+//					Robot.M2_Dirction = POSITIVE;
+//					Robot.M1_pwm = 120;
+//					Robot.M2_pwm = 120;
+//					robot_MotorMove(300);
+//				}
+			}
+			else  /* 没有出界 */
 			{
 				Robot.M1_Dirction = Robot.dirction;
 				Robot.M2_Dirction = Robot.dirction;
@@ -459,8 +538,21 @@ void robot_EgdeDetect(void)
 				}
 				if((ADC1ConvValue[ROBOT_GRAY] >> 2) < 90)/* 在擂台边缘速度减慢 */
 				{
-					Robot.M1_pwm = 140;
-					Robot.M2_pwm = 140;
+					if(EdgeTime % 2 == 0)
+					{
+						Robot.M1_pwm = 140;
+						Robot.M2_pwm = 100;
+					}else 
+					{
+						Robot.M1_pwm = 100;
+						Robot.M2_pwm = 140;
+					}
+					
+					if(Robot.RobotMode == CHESS_MODE  && (IsRangDetected(ROBOT_RANG_B) || IsRangDetected(ROBOT_RANG_J)))
+					{
+						Robot.M1_pwm = 80;
+						Robot.M2_pwm = 80;
+					}
 				}
 				robot_MotorMove(0);  /* 保持电机转动，不需要延时 */
 				Robot.IsEdge = 0;    /* 清除边缘检测标志 */
